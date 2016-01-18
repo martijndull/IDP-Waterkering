@@ -1,10 +1,13 @@
 #Deze code wordt gebruikt voor de grafische user interface voor de simulatie van het eerste commandocentrum
 
 from tkinter import *
+import sys
 
-root = Tk()
-root.wm_title("Commandocentrum 1")
-root.resizable(width=FALSE, height=FALSE)
-root.minsize(width = 1400, height=800)
+def Commandocentrum_scherm():
+    root = Tk()
+    root.title("Commandocentrum 1")
+    root.wm_state('zoomed')
 
-root.mainloop()
+    mainloop()
+
+Commandocentrum_scherm()
