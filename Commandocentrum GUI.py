@@ -23,6 +23,9 @@ weather_com_result_hvh = pywapi.get_weather_from_weather_com('NLXX0025')
 weather_com_result_r = pywapi.get_weather_from_weather_com('NLXX0015')
 weather_com_result_d = pywapi.get_weather_from_weather_com('NLXX0006')
 
+#status van kering, input nog aanpassen als rest van code er is
+status_maeslantkering = "geopend."
+
 def Commandocentrum_scherm():
     root = Tk()
     root.title("Commandocentrum Alpha")
@@ -89,6 +92,9 @@ def Commandocentrum_scherm():
         Label(text=weather_com_result_d['current_conditions']['barometer']['reading'] + "mb", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=3, sticky=NSEW)
         Label(text=weather_com_result_d['current_conditions']['wind']['speed'] + str("km/h"), anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=8,column=3, sticky=NSEW)
         Label(text=weather_com_result_d['current_conditions']['wind']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=9,column=3, sticky=NSEW)
+
+        Label(text="Status:", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=0, column=6, sticky=NSEW)
+        Label(text="De Maeslantkering is op dit moment " + status_maeslantkering, anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=1, column=6, sticky=NSEW)
 
 
     weer()
