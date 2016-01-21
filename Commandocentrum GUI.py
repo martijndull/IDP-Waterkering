@@ -95,7 +95,7 @@ def Commandocentrum_scherm():
         #Hoek van Holland
         Label(text="Hoek van Holland", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=1, sticky=NSEW,)
         Label(text=weather_com_result_hvh['current_conditions']['last_updated'][0:15], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=1, sticky=NSEW)
-        Label(text=waterhoogte_hvh + str("cm boven NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_hvh, font = ('Ariel',10, 'bold')).grid(row=2,column=1, sticky=NSEW)
+        Label(text=waterhoogte_hvh + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_hvh, font = ('Ariel',10, 'bold')).grid(row=2,column=1, sticky=NSEW)
         Label(text="placeholder", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=1, sticky=NSEW)
         Label(text=weather_com_result_hvh['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=1, sticky=NSEW)
         Label(text=weather_com_result_hvh['current_conditions']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=1, sticky=NSEW,)
@@ -107,7 +107,7 @@ def Commandocentrum_scherm():
         #Rotterdam
         Label(text="Rotterdam", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=2, sticky=NSEW,)
         Label(text=weather_com_result_r['current_conditions']['last_updated'][0:15], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=2, sticky=NSEW)
-        Label(text=waterhoogte_r + str("cm boven NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_r, font = ('Ariel',10, 'bold')).grid(row=2,column=2, sticky=NSEW)
+        Label(text=waterhoogte_r + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_r, font = ('Ariel',10, 'bold')).grid(row=2,column=2, sticky=NSEW)
         Label(text="placeholder", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=2, sticky=NSEW)
         Label(text=weather_com_result_r['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=2, sticky=NSEW)
         Label(text=weather_com_result_r['current_conditions']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=2, sticky=NSEW,)
@@ -119,7 +119,7 @@ def Commandocentrum_scherm():
         #Dordrecht
         Label(text="Dordrecht", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=3, sticky=NSEW,)
         Label(text=weather_com_result_d['current_conditions']['last_updated'][0:15], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=3, sticky=NSEW)
-        Label(text=waterhoogte_d + str("cm boven NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_d, font = ('Ariel',10, 'bold')).grid(row=2,column=3, sticky=NSEW)
+        Label(text=waterhoogte_d + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_d, font = ('Ariel',10, 'bold')).grid(row=2,column=3, sticky=NSEW)
         Label(text="placeholder", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=3, sticky=NSEW)
         Label(text=weather_com_result_d['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=3, sticky=NSEW)
         Label(text=weather_com_result_d['current_conditions']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=3, sticky=NSEW,)
