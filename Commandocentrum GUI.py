@@ -20,6 +20,7 @@ import sys
 import pywapi
 import requests
 import json
+import time
 
 def waterstanden():
     """Haalt huidige waterstand op van rijkswaterstaat site"""
@@ -127,8 +128,14 @@ def Commandocentrum_scherm():
         Label(text="Status:", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=0, column=6, sticky=NSEW)
         Label(text="De Maeslantkering is op dit moment " + status_maeslantkering + ".", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=1, column=6, sticky=NSEW)
 
+    def update_clock():
+        now = time.strftime("%H:%M:%S")
+        Label(text=now, bg= 'white').grid(row=0, column=7)
+        root.after(1000, update_clock)
+
 
     weer()
+    update_clock()
     mainloop()
 
 Commandocentrum_scherm()
