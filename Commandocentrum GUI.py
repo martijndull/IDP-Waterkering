@@ -51,7 +51,7 @@ def weersomstandigheden():
 
 weersomstandigheden()
 
-#status van kering, input nog aanpassen als rest van code er is
+#status van kering, input nog aanpassen als rest van code er is.
 status_maeslantkering = input("Maeslantkering: geopend/gesloten?")
 
 def Commandocentrum_scherm():
