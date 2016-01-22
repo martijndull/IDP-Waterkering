@@ -7,42 +7,6 @@ import requests
 import json
 import time
 
-def waterstanden():
-    """Haalt huidige waterstand op van rijkswaterstaat site"""
-    r = requests.get('http://www.rijkswaterstaat.nl/apps/geoservices/rwsnl/?mode=features&projecttype=waterstanden&loadprojects=0')
-    index_waterstand = 0
-    global waterhoogte_hvh, waterhoogte_r, waterhoogte_d
-
-    for i in r.json()['features']:
-        if r.json()['features'][index_waterstand]['locatienaam'] == 'Hoek van Holland':
-            waterhoogte_hvh = r.json()['features'][index_waterstand]['waarde']
-
-        if r.json()['features'][index_waterstand]['locatienaam'] == 'Rotterdam':
-            waterhoogte_r = r.json()['features'][index_waterstand]['waarde']
-
-        if r.json()['features'][index_waterstand]['locatienaam'] == 'Dordrecht':
-            waterhoogte_d = r.json()['features'][index_waterstand]['waarde']
-
-        index_waterstand += 1
-
-waterstanden()
-
-#kleur waterhoogte
-if int(waterhoogte_hvh) >= 300:
-    kleur_waterhoogte_hvh = 'red'
-else:
-    kleur_waterhoogte_hvh = '#003399'
-
-if int(waterhoogte_r) >= 300:
-    kleur_waterhoogte_r = 'red'
-else:
-    kleur_waterhoogte_r = '#003399'
-
-if int(waterhoogte_d) >= 300:
-    kleur_waterhoogte_d = 'red'
-else:
-    kleur_waterhoogte_d = '#003399'
-
 #status van kering, input nog aanpassen als rest van code er is.
 status_maeslantkering = "geopend"
 
@@ -75,7 +39,45 @@ def Commandocentrum_scherm():
 
         root.after(300000, weersomstandigheden)
 
+    def waterstanden():
+        """Haalt huidige waterstand op van rijkswaterstaat site"""
+        r = requests.get('http://www.rijkswaterstaat.nl/apps/geoservices/rwsnl/?mode=features&projecttype=waterstanden&loadprojects=0')
+        index_waterstand = 0
+        global waterhoogte_hvh, waterhoogte_r, waterhoogte_d
 
+        for i in r.json()['features']:
+            if r.json()['features'][index_waterstand]['locatienaam'] == 'Hoek van Holland':
+                waterhoogte_hvh = r.json()['features'][index_waterstand]['waarde']
+
+            if r.json()['features'][index_waterstand]['locatienaam'] == 'Rotterdam':
+                waterhoogte_r = r.json()['features'][index_waterstand]['waarde']
+
+            if r.json()['features'][index_waterstand]['locatienaam'] == 'Dordrecht':
+                waterhoogte_d = r.json()['features'][index_waterstand]['waarde']
+
+            index_waterstand += 1
+
+        #kleur waterhoogte in tabel
+        global kleur_waterhoogte_hvh, kleur_waterhoogte_r, kleur_waterhoogte_d
+
+        if int(waterhoogte_hvh) >= 300:
+            kleur_waterhoogte_hvh = 'red'
+        else:
+            kleur_waterhoogte_hvh = '#003399'
+
+        if int(waterhoogte_r) >= 300:
+            kleur_waterhoogte_r = 'red'
+        else:
+            kleur_waterhoogte_r = '#003399'
+
+        if int(waterhoogte_d) >= 300:
+            kleur_waterhoogte_d = 'red'
+        else:
+            kleur_waterhoogte_d = '#003399'
+
+        root.after(300000, waterstanden)
+
+    waterstanden()
     weersomstandigheden()
 
     def weer():
