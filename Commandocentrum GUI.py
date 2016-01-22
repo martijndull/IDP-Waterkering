@@ -15,7 +15,7 @@ def Commandocentrum_scherm():
     root = Tk()
     root.title("Commandocentrum Alpha")
     root.wm_state('zoomed')
-    root.configure(background='white')
+    root.configure(background='#F0F2F2')
 
     weersvoorspelling_knop = Button(text='Weersvoorspelling', bg='#003399', fg='white')
     weersvoorspelling_knop.pack()
@@ -28,6 +28,12 @@ def Commandocentrum_scherm():
     waterkering_knop = Button(text='Logboek Maeslantkering', bg='#003399', fg='white')
     waterkering_knop.pack()
     waterkering_knop.place(width=150, height=50, relx=0.45, rely=0.90)
+
+    weer_frame = LabelFrame(root, text="Weersomstandigheden", bg='#F0F2F2')
+    weer_frame.grid(padx=50, pady=25, row=0,column=0)
+
+    bericht_frame = LabelFrame(root, text="Berichten", bg='white', padx=5, pady=5)
+    bericht_frame.grid(padx=5, pady=5, row=0,column=1)
 
     def weersomstandigheden():
         """Haalt huidige weersomstandigheden van weather.com."""
@@ -83,69 +89,69 @@ def Commandocentrum_scherm():
     def weer():
         """"Maakt tabel voor weersomstandigheden"""
 
-        Label(text='Locatie', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=0, sticky=NSEW,)
-        Label(text='Tijd update', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=0, sticky=NSEW,)
-        Label(text='Waterniveau', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=2,column=0, sticky=NSEW,)
-        Label(text='Verwacht waterniveau', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=0, sticky=NSEW,)
-        Label(text='Temperatuur', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=0, sticky=NSEW)
-        Label(text='Huidige omstandigheden', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=0, sticky=NSEW)
-        Label(text='Luchtvochtigheid', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=6,column=0, sticky=NSEW)
-        Label(text='Luchtdruk', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=0, sticky=NSEW)
-        Label(text='Windkracht', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=8,column=0, sticky=NSEW)
-        Label(text='Richting', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=9,column=0, sticky=NSEW)
+        Label(weer_frame, text='Locatie', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=0,column=0, sticky=NSEW)
+        Label(weer_frame, text='Tijd update', anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=1,column=0, sticky=NSEW)
+        Label(weer_frame, text='Waterniveau', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=2,column=0, sticky=NSEW)
+        Label(weer_frame, text='Verwacht waterniveau', anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=3,column=0, sticky=NSEW)
+        Label(weer_frame, text='Temperatuur', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=4,column=0, sticky=NSEW)
+        Label(weer_frame, text='Huidige omstandigheden', anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=5,column=0, sticky=NSEW)
+        Label(weer_frame, text='Luchtvochtigheid', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=6,column=0, sticky=NSEW)
+        Label(weer_frame, text='Luchtdruk', anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=7,column=0, sticky=NSEW)
+        Label(weer_frame, text='Windkracht', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=8,column=0, sticky=NSEW)
+        Label(weer_frame, text='Richting', anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=9,column=0, sticky=NSEW)
 
         #Hoek van Holland
-        Label(text="Hoek van Holland", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=1, sticky=NSEW,)
-        Label(text=weather_com_result_hvh['current_conditions']['last_updated'][0:15], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=1, sticky=NSEW)
-        Label(text=waterhoogte_hvh + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_hvh, font = ('Ariel',10, 'bold')).grid(row=2,column=1, sticky=NSEW)
-        Label(text="placeholder", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=1, sticky=NSEW)
-        Label(text=weather_com_result_hvh['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=1, sticky=NSEW)
-        Label(text=weather_com_result_hvh['current_conditions']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=1, sticky=NSEW,)
-        Label(text=weather_com_result_hvh['current_conditions']['humidity'] + "%", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=6,column=1, sticky=NSEW)
-        Label(text=weather_com_result_hvh['current_conditions']['barometer']['reading'] + "mb", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=1, sticky=NSEW)
-        Label(text=weather_com_result_hvh['current_conditions']['wind']['speed'] + str("km/h"), anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=8,column=1, sticky=NSEW)
-        Label(text=weather_com_result_hvh['current_conditions']['wind']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=9,column=1, sticky=NSEW)
+        Label(weer_frame, text="Hoek van Holland", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=0,column=1, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_hvh['current_conditions']['last_updated'][0:16], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=1,column=1, sticky=NSEW)
+        Label(weer_frame, text=waterhoogte_hvh + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_hvh, font = ('Ariel',10, 'bold')).grid(ipadx=25, row=2,column=1, sticky=NSEW)
+        Label(weer_frame, text="placeholder", anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=3,column=1, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_hvh['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=4,column=1, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_hvh['current_conditions']['text'], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=5,column=1, sticky=NSEW,)
+        Label(weer_frame, text=weather_com_result_hvh['current_conditions']['humidity'] + "%", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=6,column=1, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_hvh['current_conditions']['barometer']['reading'] + "mb", anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=7,column=1, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_hvh['current_conditions']['wind']['speed'] + str("km/h"), anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=8,column=1, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_hvh['current_conditions']['wind']['text'], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=9,column=1, sticky=NSEW)
 
         #Rotterdam
-        Label(text="Rotterdam", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=2, sticky=NSEW,)
-        Label(text=weather_com_result_r['current_conditions']['last_updated'][0:15], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=2, sticky=NSEW)
-        Label(text=waterhoogte_r + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_r, font = ('Ariel',10, 'bold')).grid(row=2,column=2, sticky=NSEW)
-        Label(text="placeholder", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=2, sticky=NSEW)
-        Label(text=weather_com_result_r['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=2, sticky=NSEW)
-        Label(text=weather_com_result_r['current_conditions']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=2, sticky=NSEW,)
-        Label(text=weather_com_result_r['current_conditions']['humidity'] + "%", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=6,column=2, sticky=NSEW)
-        Label(text=weather_com_result_r['current_conditions']['barometer']['reading'] + "mb", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=2, sticky=NSEW)
-        Label(text=weather_com_result_r['current_conditions']['wind']['speed'] + str("km/h"), anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=8,column=2, sticky=NSEW)
-        Label(text=weather_com_result_r['current_conditions']['wind']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=9,column=2, sticky=NSEW)
+        Label(weer_frame, text="Rotterdam", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx= 25, row=0,column=2, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_r['current_conditions']['last_updated'][0:16], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=1,column=2, sticky=NSEW)
+        Label(weer_frame, text=waterhoogte_r + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_r, font = ('Ariel',10, 'bold')).grid(ipadx=25, row=2,column=2, sticky=NSEW)
+        Label(weer_frame, text="placeholder", anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=3,column=2, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_r['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=4,column=2, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_r['current_conditions']['text'], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=5,column=2, sticky=NSEW,)
+        Label(weer_frame, text=weather_com_result_r['current_conditions']['humidity'] + "%", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=6,column=2, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_r['current_conditions']['barometer']['reading'] + "mb", anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=7,column=2, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_r['current_conditions']['wind']['speed'] + str("km/h"), anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=8,column=2, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_r['current_conditions']['wind']['text'], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=9,column=2, sticky=NSEW)
 
         #Dordrecht
-        Label(text="Dordrecht", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=3, sticky=NSEW,)
-        Label(text=weather_com_result_d['current_conditions']['last_updated'][0:15], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=3, sticky=NSEW)
-        Label(text=waterhoogte_d + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_d, font = ('Ariel',10, 'bold')).grid(row=2,column=3, sticky=NSEW)
-        Label(text="placeholder", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=3, sticky=NSEW)
-        Label(text=weather_com_result_d['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=3, sticky=NSEW)
-        Label(text=weather_com_result_d['current_conditions']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=3, sticky=NSEW,)
-        Label(text=weather_com_result_d['current_conditions']['humidity'] + "%", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=6,column=3, sticky=NSEW)
-        Label(text=weather_com_result_d['current_conditions']['barometer']['reading'] + "mb", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=3, sticky=NSEW)
-        Label(text=weather_com_result_d['current_conditions']['wind']['speed'] + str("km/h"), anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=8,column=3, sticky=NSEW)
-        Label(text=weather_com_result_d['current_conditions']['wind']['text'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=9,column=3, sticky=NSEW)
+        Label(weer_frame, text="Dordrecht", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=0,column=3, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_d['current_conditions']['last_updated'][0:16], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=1,column=3, sticky=NSEW)
+        Label(weer_frame, text=waterhoogte_d + str("cm NAP"), anchor = NW, bg = 'white', fg=kleur_waterhoogte_d, font = ('Ariel',10, 'bold')).grid(ipadx=25, row=2,column=3, sticky=NSEW)
+        Label(weer_frame, text="placeholder", anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=3,column=3, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_d['current_conditions']['temperature'] + "°C", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=4,column=3, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_d['current_conditions']['text'], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=5,column=3, sticky=NSEW,)
+        Label(weer_frame, text=weather_com_result_d['current_conditions']['humidity'] + "%", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=6,column=3, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_d['current_conditions']['barometer']['reading'] + "mb", anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=7,column=3, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_d['current_conditions']['wind']['speed'] + str("km/h"), anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=8,column=3, sticky=NSEW)
+        Label(weer_frame, text=weather_com_result_d['current_conditions']['wind']['text'], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=9,column=3, sticky=NSEW)
 
-        root.after(300000, weer)
+        weer_frame.after(300000, weer)
 
     def status_waarschuwing():
         """Status van de Maeslantkering en eventuele waarschuwingen"""
-        Label(text="Status:", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=0, column=6, sticky=NSEW)
-        Label(text="De Maeslantkering is op dit moment " + status_maeslantkering + ".", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=1, column=6, sticky=NSEW)
+        Label(bericht_frame, text="Status:", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=1, column=0, sticky=NSEW)
+        Label(bericht_frame, text="De Maeslantkering is op dit moment " + status_maeslantkering + ".", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=2, column=0, sticky=NSEW)
 
-        Label(text="Waarschuwingen:", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=5, column=6, sticky=NSEW)
-        Label(text="waarschuwing invoegen", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=6, column=6, sticky=NSEW)
+        Label(bericht_frame, text="Waarschuwingen:", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=3, column=0, sticky=NSEW)
+        Label(bericht_frame, text="waarschuwing invoegen", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=4, column=0, sticky=NSEW)
 
-        root.after(300000, status_waarschuwing)
+        bericht_frame.after(300000, status_waarschuwing)
 
     def update_clock():
         now = time.strftime("%H:%M:%S")
-        Label(text=now, bg= 'white').grid(row=0, column=7)
-        root.after(1000, update_clock)
+        Label(bericht_frame, text=now, bg= 'white').grid(row=0, column=0)
+        bericht_frame.after(1000, update_clock)
 
     weer()
     status_waarschuwing()
@@ -153,4 +159,3 @@ def Commandocentrum_scherm():
     mainloop()
 
 Commandocentrum_scherm()
-
