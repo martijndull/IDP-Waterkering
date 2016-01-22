@@ -29,11 +29,17 @@ def Commandocentrum_scherm():
     waterkering_knop.pack()
     waterkering_knop.place(width=150, height=50, relx=0.45, rely=0.90)
 
-    weer_frame = LabelFrame(root, text="Weersomstandigheden", bg='#F0F2F2')
-    weer_frame.grid(padx=50, pady=25, row=0,column=0)
+    weer_frame = LabelFrame(root, text="Weersomstandigheden", bg='white')
+    weer_frame.grid()
+    weer_frame.place(relx=0.05, rely=0.05)
 
     bericht_frame = LabelFrame(root, text="Berichten", bg='white', padx=5, pady=5)
-    bericht_frame.grid(padx=5, pady=5, row=0,column=1)
+    bericht_frame.grid()
+    bericht_frame.place(relx=0.55, rely=0.05)
+
+    tijd_frame = LabelFrame(root, text="Tijd", bg='white', padx=5, pady=5)
+    tijd_frame.grid()
+    tijd_frame.place(relx=0.85, rely=0.05)
 
     def weersomstandigheden():
         """Haalt huidige weersomstandigheden van weather.com."""
@@ -43,7 +49,7 @@ def Commandocentrum_scherm():
         weather_com_result_r = pywapi.get_weather_from_weather_com('NLXX0015')
         weather_com_result_d = pywapi.get_weather_from_weather_com('NLXX0006')
 
-        root.after(300000, weersomstandigheden)
+        root.after(60000, weersomstandigheden)
 
     def waterstanden():
         """Haalt huidige waterstand op van rijkswaterstaat site"""
@@ -81,7 +87,7 @@ def Commandocentrum_scherm():
         else:
             kleur_waterhoogte_d = '#003399'
 
-        root.after(300000, waterstanden)
+        root.after(60000, waterstanden)
 
     waterstanden()
     weersomstandigheden()
@@ -90,7 +96,7 @@ def Commandocentrum_scherm():
         """"Maakt tabel voor weersomstandigheden"""
 
         Label(weer_frame, text='Locatie', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=0,column=0, sticky=NSEW)
-        Label(weer_frame, text='Tijd update', anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=1,column=0, sticky=NSEW)
+        Label(weer_frame, text='Tijd laatste update', anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=1,column=0, sticky=NSEW)
         Label(weer_frame, text='Waterniveau', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=2,column=0, sticky=NSEW)
         Label(weer_frame, text='Verwacht waterniveau', anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=3,column=0, sticky=NSEW)
         Label(weer_frame, text='Temperatuur', anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, ipady=2, row=4,column=0, sticky=NSEW)
@@ -136,7 +142,7 @@ def Commandocentrum_scherm():
         Label(weer_frame, text=weather_com_result_d['current_conditions']['wind']['speed'] + str("km/h"), anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=8,column=3, sticky=NSEW)
         Label(weer_frame, text=weather_com_result_d['current_conditions']['wind']['text'], anchor = NW, bg = '#F7F7F7', fg='#003399', font = ('Ariel',10, 'bold')).grid(ipadx=25, row=9,column=3, sticky=NSEW)
 
-        weer_frame.after(300000, weer)
+        weer_frame.after(60000, weer)
 
     def status_waarschuwing():
         """Status van de Maeslantkering en eventuele waarschuwingen"""
@@ -146,12 +152,14 @@ def Commandocentrum_scherm():
         Label(bericht_frame, text="Waarschuwingen:", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=3, column=0, sticky=NSEW)
         Label(bericht_frame, text="waarschuwing invoegen", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=4, column=0, sticky=NSEW)
 
-        bericht_frame.after(300000, status_waarschuwing)
+        bericht_frame.after(10000, status_waarschuwing)
 
     def update_clock():
-        now = time.strftime("%H:%M:%S")
-        Label(bericht_frame, text=now, bg= 'white').grid(row=0, column=0)
-        bericht_frame.after(1000, update_clock)
+        now = time.strftime("%I:%M %p")
+        date = time.strftime("%a, %m/%d/%Y")
+        Label(tijd_frame, text=now, font=20, bg= 'white').grid(sticky=E, row=0, column=0)
+        Label(tijd_frame, text=date, font=20, bg= 'white').grid(sticky=E, row=1, column=0)
+        tijd_frame.after(1000, update_clock)
 
     weer()
     status_waarschuwing()
