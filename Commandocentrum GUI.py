@@ -10,6 +10,106 @@ import time
 #status van kering, input nog aanpassen als rest van code er is.
 status_maeslantkering = "geopend"
 
+weather_com_pred_hvh = pywapi.get_weather_from_weather_com( 'NLXX0025', units = 'metric' )
+weather_com_pred_r = pywapi.get_weather_from_weather_com( 'NLXX0015', units = 'metric' )
+weather_com_pred_d = pywapi.get_weather_from_weather_com( 'NLXX0006', units = 'metric' )
+
+global dag
+dag = 1
+
+def weersvoorspelling_scherm():
+    root_wvs = Tk()
+    root_wvs.title("Weersvoorspelling")
+    root_wvs.wm_state('zoomed')
+
+    weersvoorspelling_frame = LabelFrame(root_wvs, text="Weersomstandigheden", bg='white')
+    weersvoorspelling_frame.grid()
+    weersvoorspelling_frame.place(relx=0.05, rely=0.05)
+
+    def weersvoorspelling():
+
+        def volgende_dag():
+            global dag
+            dag += 1
+            weersvoorspelling()
+
+
+        def vorige_dag():
+            global dag
+            dag -= 1
+            weersvoorspelling()
+
+        if dag == 1:
+            knop_status2 = DISABLED
+        else:
+            knop_status2 = NORMAL
+
+        if dag == 4:
+            knop_status1 = DISABLED
+        else:
+            knop_status1 = NORMAL
+
+        def sluiten():
+            root_wvs.destroy()
+
+        weersvoorspelling_knop2 = Button(root_wvs, text='Vorige dag', bg='#003399', fg='white', command=vorige_dag, state=knop_status2)
+        weersvoorspelling_knop2.pack()
+        weersvoorspelling_knop2.place(width=150, height=50, relx=0.05, rely=0.90)
+
+        weersvoorspelling_knop = Button(root_wvs, text='Volgende dag', bg='#003399', fg='white',  command=volgende_dag, state=knop_status1)
+        weersvoorspelling_knop.pack()
+        weersvoorspelling_knop.place(width=150, height=50, relx=0.15, rely=0.90)
+
+        scherm_sluiten_knop = Button(root_wvs, text='Terug', bg='#003399', fg='white',  command=sluiten)
+        scherm_sluiten_knop.pack()
+        scherm_sluiten_knop.place(width=150, height=50, relx=0.25, rely=0.90)
+
+        Label(weersvoorspelling_frame, text='Datum', anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=0, sticky=NSEW,)
+        Label(weersvoorspelling_frame, text='Locatie', anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=0, sticky=NSEW,)
+        Label(weersvoorspelling_frame, text='Min / Max temperatuur', anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=2,column=0, sticky=NSEW)
+        Label(weersvoorspelling_frame, text='Verwachte omstandigheden', anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=0, sticky=NSEW)
+        Label(weersvoorspelling_frame, text='Regenkans', anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=0, sticky=NSEW)
+        Label(weersvoorspelling_frame, text='Luchtvochtigheid', anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=0, sticky=NSEW)
+        Label(weersvoorspelling_frame, text='Windkracht', anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=6,column=0, sticky=NSEW)
+        Label(weersvoorspelling_frame, text='Richting', anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=0, sticky=NSEW)
+
+        #datum
+        Label(weersvoorspelling_frame, text=weather_com_pred_hvh['forecasts'][dag]['date'], anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=0,column=1, sticky=NSEW)
+
+        #Hoek van Holland
+        Label(weersvoorspelling_frame, text="Hoek van Holland", anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=1, sticky=NSEW,)
+        Label(weersvoorspelling_frame, text=weather_com_pred_hvh['forecasts'][dag]['low'] + "°C / " + weather_com_pred_hvh['forecasts'][dag]['high'] + "°C",  anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=2,column=1, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_hvh['forecasts'][dag]['day']['text'], anchor = NW, bg ='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=1, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_hvh['forecasts'][dag]['day']['chance_precip'] + "%", anchor = NW, bg ='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=1, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_hvh['forecasts'][dag]['day']['humidity'] + "%", anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=1, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_hvh['forecasts'][dag]['day']['wind']['speed'] + str("km/h"), anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=6,column=1, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_hvh['forecasts'][dag]['day']['wind']['text'], anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=1, sticky=NSEW)
+
+
+        #Rotterdam
+        Label(weersvoorspelling_frame, text="Rotterdam", anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=2, sticky=NSEW,)
+        Label(weersvoorspelling_frame, text=weather_com_pred_r['forecasts'][dag]['low'] + "°C / " + weather_com_pred_r['forecasts'][dag]['high'] + "°C",  anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=2,column=2, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_r['forecasts'][dag]['day']['text'], anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=2, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_r['forecasts'][dag]['day']['chance_precip'] + "%", anchor = NW, bg ='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=2, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_r['forecasts'][dag]['day']['humidity'] + "%", anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=2, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_r['forecasts'][dag]['day']['wind']['speed'] + str("km/h"), anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=6,column=2, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_r['forecasts'][dag]['day']['wind']['text'], anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=2, sticky=NSEW)
+
+
+        #Dordrecht
+        Label(weersvoorspelling_frame, text="Dordrecht", anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=1,column=3, sticky=NSEW,)
+        Label(weersvoorspelling_frame, text=weather_com_pred_d['forecasts'][dag]['low'] + "°C / " + weather_com_pred_d['forecasts'][dag]['high'] + "°C",  anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=2,column=3, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_d['forecasts'][dag]['day']['text'], anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=3,column=3, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_d['forecasts'][dag]['day']['chance_precip'] + "%", anchor = NW, bg ='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=4,column=3, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_d['forecasts'][dag]['day']['humidity'] + "%", anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=5,column=3, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_d['forecasts'][dag]['day']['wind']['speed'] + str("km/h"), anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=6,column=3, sticky=NSEW)
+        Label(weersvoorspelling_frame, text=weather_com_pred_d['forecasts'][dag]['day']['wind']['text'], anchor = NW, bg='white', fg='#003399', font = ('Ariel',10, 'bold')).grid(row=7,column=3, sticky=NSEW)
+
+
+    weersvoorspelling()
+
+    mainloop()
+
 def Commandocentrum_scherm():
     """Maakt GUI voor commandocentrum"""
     root = Tk()
@@ -17,7 +117,7 @@ def Commandocentrum_scherm():
     root.wm_state('zoomed')
     root.configure(background='#F0F2F2')
 
-    weersvoorspelling_knop = Button(text='Weersvoorspelling', bg='#003399', fg='white')
+    weersvoorspelling_knop = Button(text='Weersvoorspelling', bg='#003399', fg='white', command=weersvoorspelling_scherm)
     weersvoorspelling_knop.pack()
     weersvoorspelling_knop.place(width=150, height=50, relx=0.15, rely=0.90)
 
@@ -45,9 +145,9 @@ def Commandocentrum_scherm():
         """Haalt huidige weersomstandigheden van weather.com."""
         global weather_com_result_hvh, weather_com_result_r, weather_com_result_d
 
-        weather_com_result_hvh = pywapi.get_weather_from_weather_com('NLXX0025')
-        weather_com_result_r = pywapi.get_weather_from_weather_com('NLXX0015')
-        weather_com_result_d = pywapi.get_weather_from_weather_com('NLXX0006')
+        weather_com_result_hvh = pywapi.get_weather_from_weather_com('NLXX0025', units='metric')
+        weather_com_result_r = pywapi.get_weather_from_weather_com('NLXX0015', units='metric')
+        weather_com_result_d = pywapi.get_weather_from_weather_com('NLXX0006', units='metric')
 
         root.after(60000, weersomstandigheden)
 
