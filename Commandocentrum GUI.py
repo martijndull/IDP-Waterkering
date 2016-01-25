@@ -6,6 +6,7 @@ import pywapi
 import requests
 import json
 import time
+import tkinter.messagebox as tm
 
 #status van kering, input nog aanpassen als rest van code er is.
 status_maeslantkering = "geopend"
@@ -17,10 +18,51 @@ weather_com_pred_d = pywapi.get_weather_from_weather_com( 'NLXX0006', units = 'm
 global dag
 dag = 1
 
+def login():
+
+    root_l = Tk()
+    root_l.title("Login")
+    lf = LabelFrame(root_l)
+
+    def _login_btn_clickked():
+        #print("Clicked")
+        username = entry_1.get()
+        password = entry_2.get()
+
+        #print(username, password)
+
+        if username == "admin" and password == "admin":
+            result = tm.askquestion("Afsluiten", "Weet u zeker dat u het programma af wilt sluiten?", icon='warning')
+            if result == 'yes':
+                sys.exit()
+            elif result == 'no':
+                root_l.destroy()
+
+        else:
+            tm.showerror("Fout", "Verkeerde gebruikersnaam of wachtwoord")
+
+    label_1 = Label(lf, text="Gebruikersnaam")
+    label_2 = Label(lf, text="Wachtwoord")
+
+    entry_1 = Entry(lf)
+    entry_2 = Entry(lf, show="*")
+
+    label_1.grid(row=0, sticky=E)
+    label_2.grid(row=1, sticky=E)
+    entry_1.grid(row=0, column=1)
+    entry_2.grid(row=1, column=1)
+
+    logbtn = Button(lf, text="Login", command = _login_btn_clickked)
+    logbtn.grid(columnspan=2)
+
+    lf.pack()
+    root_l.mainloop()
+
 def weersvoorspelling_scherm():
     root_wvs = Tk()
     root_wvs.title("Weersvoorspelling")
-    root_wvs.wm_state('zoomed')
+    #root_wvs.wm_state('zoomed')
+    root_wvs.attributes("-fullscreen", True)
 
     weersvoorspelling_frame = LabelFrame(root_wvs, text="Weersomstandigheden", bg='white')
     weersvoorspelling_frame.grid()
@@ -114,7 +156,8 @@ def Commandocentrum_scherm():
     """Maakt GUI voor commandocentrum"""
     root = Tk()
     root.title("Commandocentrum Alpha")
-    root.wm_state('zoomed')
+    #root.wm_state('zoomed')
+    root.attributes("-fullscreen", True)
     root.configure(background='#F0F2F2')
 
     weersvoorspelling_knop = Button(text='Weersvoorspelling', bg='#003399', fg='white', command=weersvoorspelling_scherm)
@@ -128,6 +171,10 @@ def Commandocentrum_scherm():
     waterkering_knop = Button(text='Logboek Maeslantkering', bg='#003399', fg='white')
     waterkering_knop.pack()
     waterkering_knop.place(width=150, height=50, relx=0.45, rely=0.90)
+
+    afsluiten_knop = Button(text='Afsluiten', bg='#003399', fg='white', command=login)
+    afsluiten_knop.pack()
+    afsluiten_knop.place(width=150, height=50, relx=0.85, rely=0.90)
 
     weer_frame = LabelFrame(root, text="Weersomstandigheden", bg='white')
     weer_frame.grid()
