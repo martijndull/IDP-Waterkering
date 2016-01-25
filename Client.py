@@ -1,20 +1,25 @@
-# Client side
 import socket
-import sys
+from _thread import *
 
-HOST, PORT = "145.89.78.179", 9123
-data = " ".join(sys.argv[1:])
+def client():
+ HOST = 'SERVER1'
+ PORT = 9123
+ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ s.connect((HOST, PORT))
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ data = s.recv(2048)
+ print("Recieved: "+(data.decode('utf-8')))
 
-try:
-    sock.connect((HOST, PORT))
-    sock.sendall(data + "\n")
+ def threaded_client(conn):
 
-    received = sock.recv(1024)
+  while True:
+   data = conn.recv(2048)
+   print(data.decode('utf-8'))
+   reply = 'Client output: '+data.decode('utf-8')
+   conn.sendall(str.encode(reply))
 
-finally:
-    sock.close()
+  start_new_thread(threaded_client,(conn,))
 
-print ("Verzonden {}".format(data))
-print ("Ontvangen  {}".format(received))
+
+
+client()

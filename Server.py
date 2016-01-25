@@ -1,19 +1,24 @@
+import socket
+
+def server():
+    HOST = socket.gethostname()
+    PORT = 9123
+
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((HOST, PORT))
+
+    print (HOST)
+
+    sock.listen(5)
+
+    while True:
+        (c, addr) = sock.accept()
+        print ('gelukt', addr)
+        c.close
+
+    while True:
+        data = sock.recv()
+        print (data)
 
 
-#Server side
-import socketserver
-
-class MijnTCPHandler(socketserver.BaseRequestHandler):
-
-    def handle(self):
-        self.data = self.request.recv(1024).strip()
-        print ("{}...gelukt".format(self.client_address[0]))
-        print (self.data)
-        self.request.sendall(self.data.upper())
-
-
-if __name__ == "__main__":
-    HOST, PORT = "IDPG2", 9123
-    server = socketserver.TCPServer((HOST, PORT), MijnTCPHandler)
-
-    server.serve_forever()
+server()
