@@ -22,6 +22,10 @@ def login():
 
     root_l = Tk()
     root_l.title("Login")
+    root_l.attributes("-topmost", 1)
+    root_l.attributes("-toolwindow",1)
+    root_l.resizable(0,0)
+    root_l.focus_force()
     lf = LabelFrame(root_l)
 
     def _login_btn_clickked():
@@ -64,7 +68,7 @@ def weersvoorspelling_scherm():
     #root_wvs.wm_state('zoomed')
     root_wvs.attributes("-fullscreen", True)
 
-    weersvoorspelling_frame = LabelFrame(root_wvs, text="Weersomstandigheden", bg='white')
+    weersvoorspelling_frame = LabelFrame(root_wvs, text="Weersvoorspelling", bg='white')
     weersvoorspelling_frame.grid()
     weersvoorspelling_frame.place(relx=0.05, rely=0.05)
 
