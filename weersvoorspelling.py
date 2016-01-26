@@ -52,7 +52,7 @@ def weersvoorspelling_scherm():
 
         scherm_sluiten_knop = Button(root_wvs, text='Terug', bg='#003399', fg='white',  command=sluiten)
         scherm_sluiten_knop.pack()
-        scherm_sluiten_knop.place(width=150, height=50, relx=0.85, rely=0.90)
+        scherm_sluiten_knop.place(width=150, height=50, relx=0.85, rely=0.93)
 
 
     #dag1

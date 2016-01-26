@@ -21,33 +21,41 @@ def Commandocentrum_scherm():
     root.attributes("-fullscreen", True)
     root.configure(background='#F0F2F2')
 
+    commandocentrum_tekst = Frame(root, bg='#F0F2F2')
+    commandocentrum_tekst.grid()
+    commandocentrum_tekst.place(relx=0.05, rely=0.05)
+
+    Label(commandocentrum_tekst, text='Maeslantkering Commandocentrum Alpha', anchor = NW, bg='#F0F2F2', fg='#003399', font = ('Ariel',18, 'bold')).grid(row=1,column=0, ipadx=5, sticky=NSEW,)
+
+
     weersvoorspelling_knop = Button(text='Weersvoorspelling', bg='#003399', fg='white', command=weersvoorspelling_scherm)
     weersvoorspelling_knop.pack()
-    weersvoorspelling_knop.place(width=150, height=50, relx=0.15, rely=0.90)
+    weersvoorspelling_knop.place(width=150, height=50, relx=0.05, rely=0.93)
 
     waterstand_knop = Button(text='Archief waterstand', bg='#003399', fg='white')
     waterstand_knop.pack()
-    waterstand_knop.place(width=150, height=50, relx=0.30, rely=0.90)
+    waterstand_knop.place(width=150, height=50, relx=0.15, rely=0.93)
 
     waterkering_knop = Button(text='Logboek Maeslantkering', bg='#003399', fg='white')
     waterkering_knop.pack()
-    waterkering_knop.place(width=150, height=50, relx=0.45, rely=0.90)
+    waterkering_knop.place(width=150, height=50, relx=0.25, rely=0.93)
 
     afsluiten_knop = Button(text='Afsluiten', bg='#003399', fg='white', command=login)
     afsluiten_knop.pack()
-    afsluiten_knop.place(width=150, height=50, relx=0.85, rely=0.90)
+    afsluiten_knop.place(width=150, height=50, relx=0.85, rely=0.93)
 
     weer_frame = LabelFrame(root, text="Weersomstandigheden", bg='white')
     weer_frame.grid()
-    weer_frame.place(relx=0.05, rely=0.05)
+    weer_frame.place(relx=0.05, rely=0.10)
 
-    bericht_frame = LabelFrame(root, text="Berichten", bg='white', padx=5, pady=5)
+    bericht_frame = LabelFrame(root, text="Berichten", bg='white', width=626, height=275)
     bericht_frame.grid()
-    bericht_frame.place(relx=0.55, rely=0.05)
+    bericht_frame.grid_propagate(False)
+    bericht_frame.place(relx=0.55, rely=0.10)
 
     tijd_frame = LabelFrame(root, text="Tijd", bg='white', padx=5, pady=5)
     tijd_frame.grid()
-    tijd_frame.place(relx=0.85, rely=0.05)
+    tijd_frame.place(relx=0.85, rely=0.10)
 
     def weersomstandigheden():
         """Haalt huidige weersomstandigheden van weather.com."""
