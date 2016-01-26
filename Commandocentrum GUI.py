@@ -1,6 +1,7 @@
 """Deze code wordt gebruikt voor de grafische user interface voor de simulatie van het eerste commandocentrum. Op het scherm worden de huidige weersomstandigheden, de huidige waterstand, de status van de Maeslantkering en een klok met de huidige tijd weergegeven."""
 
 from tkinter import *
+import tkinter
 import sys
 import pywapi
 import requests
@@ -9,6 +10,9 @@ import time
 import tkinter.messagebox as tm
 from weersvoorspelling import weersvoorspelling_scherm
 from login import login
+from PIL import Image, ImageTk
+import io
+import urllib.request as ur
 
 #status van kering, input nog aanpassen als rest van code er is.
 status_maeslantkering = "geopend"
@@ -19,7 +23,6 @@ def Commandocentrum_scherm():
     root.title("Commandocentrum Alpha")
     #root.wm_state('zoomed')
     root.attributes("-fullscreen", True)
-    root.configure(background='#F0F2F2')
 
     bottomframe = Frame(root, bg='#6399E6', width=1700, height=70)
     bottomframe.grid()
@@ -28,7 +31,7 @@ def Commandocentrum_scherm():
 
     commandocentrum_tekst = Frame(root, bg='#F0F2F2')
     commandocentrum_tekst.grid()
-    commandocentrum_tekst.place(relx=0.05, rely=0.05)
+    commandocentrum_tekst.place(relx=0.05, rely=0.01)
 
     Label(commandocentrum_tekst, text='Maeslantkering Commandocentrum Alpha', anchor = NW, bg='#F0F2F2', fg='#003399', font = ('Ariel',18, 'bold')).grid(row=1,column=0, ipadx=5, sticky=NSEW,)
 
@@ -47,16 +50,30 @@ def Commandocentrum_scherm():
 
     weer_frame = LabelFrame(root, text="Weersomstandigheden", bg='white')
     weer_frame.grid()
-    weer_frame.place(relx=0.05, rely=0.10)
+    weer_frame.place(relx=0.05, rely=0.05)
 
-    bericht_frame = LabelFrame(root, text="Berichten", bg='white', width=626, height=251)
+    bericht_frame = LabelFrame(root, text="Berichten", bg='white', width=641, height=251)
     bericht_frame.grid()
     bericht_frame.grid_propagate(False)
-    bericht_frame.place(relx=0.55, rely=0.10)
+    bericht_frame.place(relx=0.55, rely=0.05)
 
     tijd_frame = LabelFrame(root, text="Tijd", bg='white', padx=5, pady=5)
     tijd_frame.grid()
-    tijd_frame.place(relx=0.85, rely=0.10)
+    tijd_frame.place(relx=0.86, rely=0.05)
+
+    def webcam():
+        URL = "http://webcams.dirkzwager.com/cam_hvh.jpg"
+        u = ur.urlopen(URL)
+
+        s = io.BytesIO(u.read())
+        pil_image = Image.open(s)
+        tk_image = ImageTk.PhotoImage(pil_image)
+        Label = tkinter.Label(root, image=tk_image)
+        Label.image = tk_image
+        Label.place(relx=0.55, rely=0.35)
+
+        root.after(30000, webcam)
+
 
     def weersomstandigheden():
         """Haalt huidige weersomstandigheden van weather.com."""
@@ -181,6 +198,7 @@ def Commandocentrum_scherm():
     weer()
     status_waarschuwing()
     update_clock()
+    webcam()
     mainloop()
 
 Commandocentrum_scherm()
