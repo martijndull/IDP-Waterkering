@@ -19,6 +19,11 @@ def weersvoorspelling_scherm():
     root_wvs.attributes("-fullscreen", True)
     root_wvs.configure(background='#F0F2F2')
 
+    bottomframe_wvs = Frame(root_wvs, bg='#6399E6', width=1700, height=70)
+    bottomframe_wvs.grid()
+    bottomframe_wvs.pack_propagate(0)
+    bottomframe_wvs.place(rely=0.92)
+
     weersvoorspelling_tekst = Frame(root_wvs, bg='#F0F2F2')
     weersvoorspelling_tekst.grid()
     weersvoorspelling_tekst.place(relx=0.05, rely=0.05)
