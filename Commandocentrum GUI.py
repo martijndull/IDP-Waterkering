@@ -52,7 +52,7 @@ def Commandocentrum_scherm():
     weer_frame.grid()
     weer_frame.place(relx=0.05, rely=0.05)
 
-    bericht_frame = LabelFrame(root, text="Berichten", bg='white', width=641, height=251)
+    bericht_frame = LabelFrame(root, text="Berichten", bg='white', width=641, height=742)
     bericht_frame.grid()
     bericht_frame.grid_propagate(False)
     bericht_frame.place(relx=0.55, rely=0.05)
@@ -70,7 +70,7 @@ def Commandocentrum_scherm():
         tk_image = ImageTk.PhotoImage(pil_image)
         Label = tkinter.Label(root, image=tk_image)
         Label.image = tk_image
-        Label.place(relx=0.55, rely=0.35)
+        Label.place(relx=0.08, rely=0.35)
 
         root.after(30000, webcam)
 
