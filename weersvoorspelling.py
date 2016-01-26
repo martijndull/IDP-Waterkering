@@ -25,25 +25,25 @@ def weersvoorspelling_scherm():
 
     Label(weersvoorspelling_tekst, text='Weersvoorspelling', anchor = NW, bg='#F0F2F2', fg='#003399', font = ('Ariel',18, 'bold')).grid(row=1,column=0, ipadx=5, sticky=NSEW,)
 
-    weersvoorspelling_frame = LabelFrame(root_wvs, width=650, height=220, text=dag1, bg='white')
+    weersvoorspelling_frame = LabelFrame(root_wvs, width=650, height=220, text=dag1, fg='#003399', font = (13), bg='white')
     weersvoorspelling_frame.grid()
     weersvoorspelling_frame.grid_propagate(False)
     weersvoorspelling_frame.place(relx=0.05, rely=0.15)
 
-    weersvoorspelling_frame2 = LabelFrame(root_wvs, width=650, height=220, text=dag2, bg='white')
+    weersvoorspelling_frame2 = LabelFrame(root_wvs, width=650, height=220, text=dag2, fg='#003399', font = (13), bg='white')
     weersvoorspelling_frame2.grid()
     weersvoorspelling_frame2.grid_propagate(False)
-    weersvoorspelling_frame2.place(relx=0.55, rely=0.15)
+    weersvoorspelling_frame2.place(relx=0.53, rely=0.15)
 
-    weersvoorspelling_frame3 = LabelFrame(root_wvs, width=650, height=220, text=dag3, bg='white')
+    weersvoorspelling_frame3 = LabelFrame(root_wvs, width=650, height=220, text=dag3, fg='#003399', font = (13), bg='white')
     weersvoorspelling_frame3.grid()
     weersvoorspelling_frame3.grid_propagate(False)
     weersvoorspelling_frame3.place(relx=0.05, rely=0.50)
 
-    weersvoorspelling_frame4 = LabelFrame(root_wvs, width=650, height=220, text=dag4, bg='white')
+    weersvoorspelling_frame4 = LabelFrame(root_wvs, width=650, height=220, text=dag4, fg='#003399', font = (13), bg='white')
     weersvoorspelling_frame4.grid()
     weersvoorspelling_frame4.grid_propagate(False)
-    weersvoorspelling_frame4.place(relx=0.55, rely=0.50)
+    weersvoorspelling_frame4.place(relx=0.53, rely=0.50)
 
     def weersvoorspelling():
 
