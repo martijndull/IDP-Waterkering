@@ -14,8 +14,10 @@ from PIL import Image, ImageTk
 import io
 import urllib.request as ur
 
-#status van kering, input nog aanpassen als rest van code er is.
-status_maeslantkering = "geopend"
+global bericht_r, bericht_d, status_kering
+bericht_r = ""
+bericht_d = ""
+status_kering = ""
 
 def Commandocentrum_scherm():
     """Maakt GUI voor commandocentrum"""
@@ -60,6 +62,34 @@ def Commandocentrum_scherm():
     tijd_frame = LabelFrame(root, text="Tijd", bg='white', padx=5, pady=5)
     tijd_frame.grid()
     tijd_frame.place(relx=0.86, rely=0.05)
+
+    def lezen():
+        global bericht_r, bericht_d, status_kering
+        bestandr = open('waterstandrotterdam.txt', 'r')
+        datar=bestandr.read()
+        bestandr.close()
+
+        if datar == "laag":
+            bericht_r = "De waterstand in Rotterdam is op dit moment laag."
+        elif datar == "hoog":
+            bericht_r = "De waterstand in Rotterdam is op dit moment hoog."
+
+
+        bestandd = open('waterstanddordrecht.txt', 'r')
+        datad=bestandd.read()
+        bestandd.close()
+
+        if datad == "laag":
+            bericht_d = "De waterstand in Dordrecht is op dit moment laag."
+        elif datad == "hoog":
+            bericht_d = "De waterstand in Dordrecht is op dit moment hoog."
+
+        if datad == "laag" and datar == "laag":
+            status_kering = "geopend"
+        elif datad == "hoog" or datar == "hoog":
+            status_kering = "gesloten"
+
+        root.after(1000, lezen)
 
     def webcam():
         URL = "http://webcams.dirkzwager.com/cam_hvh.jpg"
@@ -179,14 +209,17 @@ def Commandocentrum_scherm():
         weer_frame.after(60000, weer)
 
     def status_waarschuwing():
+        global bericht_r, bericht_d, status_kering
         """Status van de Maeslantkering en eventuele waarschuwingen"""
         Label(bericht_frame, text="Status:", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=1, column=0, sticky=NSEW)
-        Label(bericht_frame, text="De Maeslantkering is op dit moment " + status_maeslantkering + ".", anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=2, column=0, sticky=NSEW)
+        Label(bericht_frame, text=status_kering, anchor = NW, bg = 'white', fg='#003399', font = ('Ariel',10,'bold')).grid(row=2, column=0, sticky=NSEW)
 
         Label(bericht_frame, text="Waarschuwingen:", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=3, column=0, sticky=NSEW)
         Label(bericht_frame, text="waarschuwing invoegen", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=4, column=0, sticky=NSEW)
+        Label(bericht_frame, text=bericht_r, anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=5, column=0, sticky=NSEW)
+        Label(bericht_frame, text=bericht_d, anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=6, column=0, sticky=NSEW)
 
-        bericht_frame.after(10000, status_waarschuwing)
+        bericht_frame.after(5000, status_waarschuwing)
 
     def update_clock():
         now = time.strftime("%I:%M %p")
@@ -199,6 +232,7 @@ def Commandocentrum_scherm():
     status_waarschuwing()
     update_clock()
     webcam()
+    lezen()
     mainloop()
 
 Commandocentrum_scherm()

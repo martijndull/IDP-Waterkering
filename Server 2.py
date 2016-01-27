@@ -1,6 +1,6 @@
 from socket import *
 
-host = 'SERVER1'
+host = 'Marcelo-Laptop'
 port  = 9123
 
 s = socket(AF_INET, SOCK_STREAM)
@@ -19,8 +19,14 @@ while True:
     try:
         data = conn.recv(2048)
         print("Raspberry pi: ", data.decode("UTF-8"))
-        reply = input(host+': ')
-        conn.sendall(bytes(reply, "UTF-8"))
+        bericht = data.decode('UTF-8')
+        if bericht == 'Rotterdam: 3m':
+            reply = 'rood led'
+            conn.sendall(bytes(reply, "UTF-8"))
+
+        elif bericht == 'Rotterdam: minder dan 3m':
+            reply = 'groen led'
+            conn.sendall(bytes(reply, "UTF-8"))
     except:
         break
 
