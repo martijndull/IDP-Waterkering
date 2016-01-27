@@ -1,24 +1,87 @@
-import socket
+from socket import *
 
-def server():
-    HOST = socket.gethostname()
-    PORT = 9123
+host = 'Marcelo-Laptop'
+port  = 9123
 
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind((HOST, PORT))
+s = socket(AF_INET, SOCK_STREAM)
 
-    print (HOST)
+try: s.bind((host, port))
+except error as e: print("ERROR:", e)
 
-    sock.listen(5)
+s.listen(1)
+print('Aan het wachten voor een client.........')
 
-    while True:
-        (c, addr) = sock.accept()
-        print ('gelukt', addr)
-        c.close
+conn, addr = s.accept()
 
-    while True:
-        data = sock.recv()
-        print (data)
+print("Established Connection.\nThe client is:", addr[0]+":"+str(addr[1]))
+
+rotterdam = 'laag'
+dordrecht = 'laag'
+
+while True:
+    try:
+
+        print ("start")
+        data = conn.recv(2048)
+        bericht = data.decode('UTF-8')
+
+        print ("bericht: " + bericht)
+
+        #Rotterdam
+        if bericht == 'Rotterdam: 3m':
+            rotterdam = 'hoog'
+            bestand = open('waterstandrotterdam.txt', 'w')
+            bestand.write("hoog")
+            bestand.close()
+            reply = 'rood led'
+            conn.sendall(bytes(reply, "UTF-8"))
+            print (rotterdam)
+
+        if bericht == 'Rotterdam: minder dan 3m':
+            rotterdam = 'laag'
+            bestand = open('waterstandrotterdam.txt', 'w')
+            bestand.write("laag")
+            bestand.close()
+            print (rotterdam)
+            if dordrecht == 'hoog' and rotterdam == 'laag':
+                reply = 'niks'
+                conn.sendall(bytes(reply, "UTF-8"))
+            elif dordrecht == 'laag' and rotterdam == 'laag':
+                print('test3')
+                reply = 'groen led'
+                conn.sendall(bytes(reply, "UTF-8"))
+
+        #Dordrecht
+
+        if bericht == 'Dordrecht: 3m':
+            dordrecht = 'hoog'
+            bestand = open('waterstanddordrecht.txt', 'w')
+            bestand.write("hoog")
+            bestand.close()
+            reply = 'rood led'
+            conn.sendall(bytes(reply, "UTF-8"))
+            print (dordrecht)
+
+        if bericht == 'Dordrecht: minder dan 3m':
+            dordrecht = 'laag'
+            bestand = open('waterstanddordrecht.txt', 'w')
+            bestand.write("laag")
+            bestand.close()
+            print (dordrecht)
+            if rotterdam == 'hoog' and dordrecht == 'laag':
+                reply = 'niks'
+                conn.sendall(bytes(reply, "UTF-8"))
+            elif rotterdam == 'laag' and dordrecht == 'laag':
+                print('test4')
+                reply = 'groen led'
+                conn.sendall(bytes(reply, "UTF-8"))
+
+        print ("end")
+
+    except:
+        print ("Hier gaat t mis")
+        break
 
 
-server()
+print("Sorry something went wrong! You have lost connection to the client.:(")
+conn.close()
