@@ -14,7 +14,7 @@ from PIL import Image, ImageTk
 import io
 import urllib.request as ur
 
-global bericht_r, bericht_d, status_kering, geen_webcam, geen_klok, geen_weersomstandigheden, geen_waterstand, geen_weertabel
+global bericht_r, bericht_d, status_kering, geen_webcam, geen_klok, geen_weersomstandigheden, geen_waterstand, geen_weertabel, geen_status
 bericht_r = ""
 bericht_d = ""
 status_kering = ""
@@ -23,6 +23,7 @@ geen_klok = ""
 geen_weersomstandigheden = ""
 geen_waterstand = ""
 geen_weertabel = ""
+geen_status = ""
 
 def Commandocentrum_scherm():
     """Maakt GUI voor commandocentrum"""
@@ -69,26 +70,20 @@ def Commandocentrum_scherm():
     tijd_frame.place(relx=0.86, rely=0.05)
 
     def lezen():
-        global bericht_r, bericht_d, status_kering
+        global bericht_r, bericht_d, status_kering, geen_status
         try:
-            try:
-                bestandr = open('waterstandrotterdam.txt', 'r')
-                datar=bestandr.read()
-                bestandr.close()
-            except:
-                print("Kan waterstandrotterdam.txt niet lezen.")
+            bestandr = open('waterstandrotterdam.txt', 'r')
+            datar=bestandr.read()
+            bestandr.close()
 
             if datar == "laag":
                 bericht_r = "De waterstand in Rotterdam is op dit moment laag."
             elif datar == "hoog":
                 bericht_r = "De waterstand in Rotterdam is op dit moment hoog."
 
-            try:
-                bestandd = open('waterstanddordrecht.txt', 'r')
-                datad=bestandd.read()
-                bestandd.close()
-            except:
-                print("Kan waterstanddordrecht.txt niet lezen")
+            bestandd = open('waterstanddordrecht.txt', 'r')
+            datad=bestandd.read()
+            bestandd.close()
 
             if datad == "laag":
                 bericht_d = "De waterstand in Dordrecht is op dit moment laag."
@@ -99,8 +94,11 @@ def Commandocentrum_scherm():
                 status_kering = "geopend"
             elif datad == "hoog" or datar == "hoog":
                 status_kering = "gesloten"
+
+            geen_status = ""
+
         except:
-            print("Fout.")
+            geen_status = "Kan actuele status van de Maeslantkering niet bepalen."
 
         root.after(1000, lezen)
 
@@ -262,7 +260,7 @@ def Commandocentrum_scherm():
             Label(bericht_frame, text="", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=4, column=0, sticky=NSEW)
             Label(bericht_frame, text="", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=5, column=0, sticky=NSEW)
             Label(bericht_frame, text="Waarschuwingen:", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=6, column=0, sticky=NSEW)
-            Label(bericht_frame, text="", anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=7, column=0, sticky=NSEW)
+            Label(bericht_frame, text=geen_status, anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=7, column=0, sticky=NSEW)
             Label(bericht_frame, text=bericht_r, anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=8, column=0, sticky=NSEW)
             Label(bericht_frame, text=bericht_d, anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=9, column=0, sticky=NSEW)
             Label(bericht_frame, text=geen_webcam, anchor = NW, bg = 'white', fg='red', font = ('Ariel',10,'bold')).grid(row=10, column=0, sticky=NSEW)

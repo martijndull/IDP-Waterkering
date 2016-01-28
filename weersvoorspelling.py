@@ -32,6 +32,14 @@ def weersvoorspelling_scherm():
     bottomframe_wvs.pack_propagate(0)
     bottomframe_wvs.place(rely=0.92)
 
+    def sluiten():
+        root_wvs.destroy()
+
+    scherm_sluiten_knop = Button(root_wvs, text='Terug', bg='#003399', fg='white',  command=sluiten)
+    scherm_sluiten_knop.pack()
+    scherm_sluiten_knop.place(width=150, height=50, relx=0.85, rely=0.93)
+
+
     weersvoorspelling_tekst = Frame(root_wvs, bg='#F0F2F2')
     weersvoorspelling_tekst.grid()
     weersvoorspelling_tekst.place(relx=0.05, rely=0.05)
@@ -59,14 +67,7 @@ def weersvoorspelling_scherm():
     weersvoorspelling_frame4.place(relx=0.53, rely=0.50)
 
     def weersvoorspelling():
-        global dag1, dag2, dag3, dag4
-
-        def sluiten():
-            root_wvs.destroy()
-
-        scherm_sluiten_knop = Button(root_wvs, text='Terug', bg='#003399', fg='white',  command=sluiten)
-        scherm_sluiten_knop.pack()
-        scherm_sluiten_knop.place(width=150, height=50, relx=0.85, rely=0.93)
+        global dag1, dag2, dag3, dag4, geen_weersvoorspelling
 
         try:
         #dag1
